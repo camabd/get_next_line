@@ -6,7 +6,7 @@
 /*   By: cabdli <cabdli@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 23:47:51 by cabdli            #+#    #+#             */
-/*   Updated: 2023/06/01 15:45:18 by cabdli           ###   ########.fr       */
+/*   Updated: 2023/06/01 18:15:17 by cabdli           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static char	*ft_read_save(int fd, char *save)
 		}
 		buff[read_bytes] = '\0';
 		save = ft_strjoin(save, buff);
+		// tmp ?
 		if (!save)
 			return (NULL);
 	}
@@ -58,8 +59,8 @@ static char	*ft_get_line(char *save)
 		i++;
 	}
 	if (save[i] == '\n')
-		str[i++] == '\n';
-	str[i] == '\0';
+		str[i++] = '\n';
+	str[i] = '\0';
 	return (str);
 }
 
@@ -73,6 +74,11 @@ static char	*ft_save(char *save)
 	j = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
+	if (!save[i])
+	{
+		free(save);
+		return (NULL);
+	}
 	str = malloc((ft_strlen(save) - i) * sizeof(char));
 	if (!str)
 		return (NULL);
@@ -89,7 +95,7 @@ char	*get_next_line(int fd)
 	static char	*save;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (0);
+		return (NULL);
 	save = ft_read_save(fd, save);
 	if (!save)
 		return (NULL);
