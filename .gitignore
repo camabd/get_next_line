@@ -1,0 +1,13 @@
+main.c
+
+*.a
+
+*.out
+
+*.o
+
+*.txt
+.vscode
+DS_Store
+
+Tripouille
